@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mainFrame" class="com.denyszhak.training.tncreator.gui.MainFrame" init-method="init">
+        <property name="contentPane">
+            <ref bean="mainPanel"/>
+        </property>
+        <property name="title">
+            <value>Thumbnails Creator</value>
+        </property>
+    </bean>
+
+    <bean id="mainPanel" class= "com.denyszhak.training.tncreator.gui.MainPanel" init-method="init">
+        <property name="panelComponents">
+            <list>
+                <ref bean="labelOne"/>
+                <ref bean="labelTwo"/>
+                <ref bean="labelThree"/>
+                <ref bean="labelFour"/>
+                <ref bean="filesList"/>
+                <ref bean="newFormat"/>
+                <ref bean="widthF"/>
+                <ref bean="heightF"/>
+                <ref bean="addButton"/>
+                <ref bean="clearButton"/>
+                <ref bean="obtainButton"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="addButton" class="com.denyszhak.training.tncreator.gui.button.ActionListenerButton" init-method="init"
+          p:x="180"
+          p:y="65"
+          p:width="170"
+          p:height="27"
+          p:text="Add file(s) for operation">
+        <property name="actionListener">
+            <ref bean="addButtonActionListener"/>
+        </property>
+    </bean>
+
+    <bean id="addButtonActionListener" class="com.denyszhak.training.tncreator.gui.button.AddButtonActionListener">
+        <property name="filesList">
+            <ref bean="filesList"/>
+        </property>
+        <property name="list">
+            <ref bean="list"/>
+        </property>
+    </bean>
+
+    <bean id="clearButton" class="com.denyszhak.training.tncreator.gui.button.ActionListenerButton" init-method="init"
+          p:x="70"
+          p:y="140"
+          p:width="170"
+          p:height="35"
+          p:text="Clear the file list">
+        <property name="actionListener">
+            <ref bean="clearButtonActionListener"/>
+        </property>
+    </bean>
+
+    <bean id="clearButtonActionListener" class="com.denyszhak.training.tncreator.gui.button.ClearButtonActionListener">
+        <property name="filesList">
+            <ref bean="filesList"/>
+        </property>
+        <property name="list">
+            <ref bean="list"/>
+        </property>
+    </bean>
+
+    <bean id="obtainButton" class="com.denyszhak.training.tncreator.gui.button.ActionListenerButton" init-method="init"
+          p:x="290"
+          p:y="140"
+          p:width="170"
+          p:height="35"
+          p:text="Obtain thumbnails">
+        <property name="actionListener">
+            <ref bean="obtainButtonActionListener"/>
+        </property>
+    </bean>
+
+    <bean id="obtainButtonActionListener" class="com.denyszhak.training.tncreator.gui.button.ObtainButtonActionListener">
+        <property name="list">
+            <ref bean="list"/>
+        </property>
+        <property name="widthF">
+            <ref bean="widthF"/>
+        </property>
+        <property name="heightF">
+            <ref bean="heightF"/>
+        </property>
+        <property name="newFormat">
+            <ref bean="newFormat"/>
+        </property>
+        <property name="converter">
+            <ref bean="converter"/>
+        </property>
+    </bean>
+
+    <bean id="converter" class="com.denyszhak.training.tncreator.func.Converter">
+    </bean>
+
+    <bean id="list" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="textField" class="com.denyszhak.training.tncreator.gui.TextField" abstract="true" init-method="init"/>
+
+    <bean id="filesList" parent="textField"
+          p:x="5"
+          p:y="30"
+          p:width="520"
+          p:height="27"/>
+
+    <bean id="newFormat" parent="textField"
+          p:x="130"
+          p:y="100"
+          p:width="70"
+          p:height="27"/>
+
+
+    <bean id="widthF" parent="textField"
+          p:x="270"
+          p:y="100"
+          p:width="70"
+          p:height="27"/>
+
+    <bean id="heightF" parent="textField"
+          p:x="413"
+          p:y="100"
+          p:width="70"
+          p:height="27"/>
+
+    <bean id="label" class="com.denyszhak.training.tncreator.gui.Label" abstract="true" init-method="init"/>
+
+    <bean id="labelOne" parent="label"
+          p:x="5"
+          p:y="2"
+          p:width="145"
+          p:height="27"
+          p:text="Input files for converting: "/>
+
+
+    <bean id="labelTwo" parent="label"
+          p:x="5"
+          p:y="100"
+          p:width="130"
+          p:height="27"
+          p:text="Enter the new format: "/>
+
+    <bean id="labelThree" parent="label"
+          p:x="230"
+          p:y="100"
+          p:width="70"
+          p:height="27"
+          p:text="Width: "/>
+
+    <bean id="labelFour" parent="label"
+          p:x="370"
+          p:y="100"
+          p:width="130"
+          p:height="27"
+          p:text="Height: "/>
+</beans>
